@@ -65,6 +65,13 @@ class MapViewController: UIViewController {
         centerMapToCurrentLocationNormalZoom(location: currentLocation)
     }
     
+    func addAnnotationsForRecordings(_ recordings: [Recording]) {
+        for recording in recordings {
+            let annotation = RecordingAnnotation(recording, recording.location.coordinate)
+            self.mapView.addAnnotation(annotation)
+        }
+    }
+    
     func addPendingRecordingAnnotation() {
         let annotation = PendingRecordingAnnotation(currentLocation.coordinate)
         self.mapView.addAnnotation(annotation)
@@ -74,15 +81,10 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PendingRecordingAnnotationView")
-        
         if annotationView == nil { annotationView = RecordingAnnotationView() }
-        
         if annotation.isKind(of: MKUserLocation.self)  { return nil }
-        
         annotationView?.image = UIImage(named: "cassette")
-        
         return annotationView
     }
 }
@@ -92,6 +94,17 @@ extension MapViewController: LocationObserving {
         if mapShouldUpdate {
             currentLocation = location
             centerMapToCurrentLocationNormalZoom(location: location)
+        }
+    }
+    
+    func significantUpdate(location: CLLocation) {
+        DataService.queryRecordings(location) { result in
+            switch result {
+            case .success(let recordings):
+                self.addAnnotationsForRecordings(recordings)
+            case .error(let error):
+                print("Error: \(error)")
+            }
         }
     }
 }

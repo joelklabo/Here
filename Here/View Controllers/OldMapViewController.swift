@@ -100,19 +100,10 @@ class OldMapViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     // MARK - MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "RecordingAnnotationView")
-        
-        if annotationView == nil {
-            annotationView = RecordingAnnotationView()
-        }
-        
-        if annotation.isKind(of: MKUserLocation.self)  {
-            return nil
-        }
-        
+        if annotationView == nil { annotationView = RecordingAnnotationView() }
+        if annotation.isKind(of: MKUserLocation.self)  { return nil }
         annotationView?.image = UIImage(named: "cassette")
-        
         return annotationView
     }
     

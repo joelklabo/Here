@@ -40,9 +40,12 @@ extension LocationPublisher: CLLocationManagerDelegate {
 
 protocol LocationObserving: AnyObject {
     func update(location: CLLocation)
+    func significantUpdate(location: CLLocation)
 }
 
 class LocationObserver: NSObject {
+    private var previousSignificantLocation: CLLocation?
+    private let significantDistance = CLLocationDistance(10)
     weak var delegate: LocationObserving?
     override init() {
         super.init()
@@ -51,6 +54,24 @@ class LocationObserver: NSObject {
     @objc func update(notification: Notification) {
         if let location = notification.userInfo?[locationUserInfoKey] as? CLLocation {
             delegate?.update(location: location)
+            
+            if significantChangeOccurred(location: location) {
+                previousSignificantLocation = location
+                delegate?.significantUpdate(location: location)
+            }
         }
+    }
+    
+    private func significantChangeOccurred(location: CLLocation) -> Bool {
+        guard let previous = previousSignificantLocation else {
+            previousSignificantLocation = location
+            return true
+        }
+        
+        if previous.distance(from: location) > significantDistance {
+            return true
+        }
+        
+        return false
     }
 }
