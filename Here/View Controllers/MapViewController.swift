@@ -107,13 +107,13 @@ extension MapViewController: UIGestureRecognizerDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PendingRecordingAnnotationView")
-        if annotationView == nil { annotationView = RecordingAnnotationView() }
-        if annotation.isKind(of: MKUserLocation.self)  { return nil }
-        annotationView?.image = UIImage(named: "cassette")
-        return annotationView
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PendingRecordingAnnotationView")
+//        if annotationView == nil { annotationView = RecordingAnnotationView() }
+//        if annotation.isKind(of: MKUserLocation.self)  { return nil }
+//        annotationView?.image = UIImage(named: "cassette")
+//        return annotationView
+//    }
 }
 
 extension MapViewController: LocationObserving {
