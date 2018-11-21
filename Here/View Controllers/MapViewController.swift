@@ -87,9 +87,11 @@ class MapViewController: UIViewController {
     }
     
     func addAnnotationsForRecordings(_ recordings: [Recording]) {
-        for recording in recordings {
-            let annotation = RecordingAnnotation(recording, recording.location.coordinate)
-            self.mapView.addAnnotation(annotation)
+        DispatchQueue.main.async {
+            for recording in recordings {
+                let annotation = RecordingAnnotation(recording, recording.location.coordinate)
+                self.mapView.addAnnotation(annotation)
+            }            
         }
     }
     
@@ -106,14 +108,23 @@ extension MapViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension MapViewController: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PendingRecordingAnnotationView")
-//        if annotationView == nil { annotationView = RecordingAnnotationView() }
-//        if annotation.isKind(of: MKUserLocation.self)  { return nil }
-//        annotationView?.image = UIImage(named: "cassette")
-//        return annotationView
-//    }
+extension MapViewController: MKMapViewDelegate {    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "RecordingAnnotationView")
+        if annotationView == nil { annotationView = RecordingAnnotationView() }
+        if annotation.isKind(of: MKUserLocation.self)  { return nil }
+        annotationView?.image = UIImage(named: "cassette")
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let recordingAnnotation = view.annotation as? RecordingAnnotation {
+            let recording = recordingAnnotation.recording
+            let recordingViewController = RecorderViewController()
+            recordingViewController.recording = recording
+            present(recordingViewController, animated: true, completion: nil)
+        }
+    }
 }
 
 extension MapViewController: LocationObserving {
