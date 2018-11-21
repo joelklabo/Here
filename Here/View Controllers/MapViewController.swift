@@ -53,7 +53,7 @@ class MapViewController: UIViewController {
         guard recognizer.state == .ended else { return }
         mapShouldUpdate = false
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
             self.mapShouldUpdate = true
         }
     }
