@@ -125,7 +125,11 @@ class RecorderViewController: UIViewController {
     }
     
     @IBAction func exitTapped(_ sender: Any) {
-        delegate?.dismiss()
+        presentingViewController?.dismiss(animated: true, completion: {
+            if self.isBeingDismissed {
+                // inform the delegate if you have a recording
+            }
+        })
     }
     
 }
