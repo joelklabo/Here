@@ -74,13 +74,15 @@ class MapViewController: UIViewController {
     
     func updateToExpandedState() {
         mapShouldUpdate = false
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = false
+        mapView.isUserInteractionEnabled = false
         centerMapToCurrentLocationHighZoom(location: currentLocation)
     }
     
     func updateToCollapsedState() {
         mapShouldUpdate = true
         mapView.showsUserLocation = true
+        mapView.isUserInteractionEnabled = true
         centerMapToCurrentLocationNormalZoom(location: currentLocation)
     }
     
