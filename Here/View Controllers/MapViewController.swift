@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     
     var currentLocation: CLLocation!
     
+    var timer: Timer?
     var mapShouldUpdate = true
     
     override func viewDidLoad() {
@@ -37,6 +38,24 @@ class MapViewController: UIViewController {
         ])
         
         locationObserver.delegate = self
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(userInteractedWithMap(recognizer:)))
+        panGestureRecognizer.delegate = self
+        
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(userInteractedWithMap(recognizer:)))
+        pinchGestureRecognizer.delegate = self
+        
+        mapView.addGestureRecognizer(panGestureRecognizer)
+        mapView.addGestureRecognizer(pinchGestureRecognizer)
+    }
+    
+    @objc func userInteractedWithMap(recognizer: UIGestureRecognizer) {
+        guard recognizer.state == .ended else { return }
+        mapShouldUpdate = false
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+            self.mapShouldUpdate = true
+        }
     }
     
     func centerMapToCurrentLocationNormalZoom(location: CLLocation) {
@@ -78,8 +97,14 @@ class MapViewController: UIViewController {
     }
 }
 
+extension MapViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 extension MapViewController: MKMapViewDelegate {
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PendingRecordingAnnotationView")
         if annotationView == nil { annotationView = RecordingAnnotationView() }
