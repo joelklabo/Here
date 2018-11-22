@@ -136,9 +136,11 @@ extension MapViewController: LocationObserving {
     }
     
     func significantUpdate(location: CLLocation) {
+        StatusDisplayController.shared.show(message: "Loading...")
         DataService.queryRecordings(location) { result in
             switch result {
             case .success(let recordings):
+                StatusDisplayController.shared.hide()
                 self.addAnnotationsForRecordings(recordings)
             case .error(let error):
                 print("Error: \(error)")

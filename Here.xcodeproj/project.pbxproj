@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED1048A621A20EA80074804E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1048A521A20EA80074804E /* MapViewController.swift */; };
+		ED15C57421A5FA09009C6553 /* StatusDisplayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED15C57321A5FA09009C6553 /* StatusDisplayController.swift */; };
 		ED30F4B220F7AB8000A95E9F /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED30F4B020F7AB8000A95E9F /* RecorderViewController.swift */; };
 		ED30F4B320F7AB8000A95E9F /* RecorderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED30F4B120F7AB8000A95E9F /* RecorderViewController.xib */; };
 		ED4EC09D2100E669009163C8 /* ViewControllerDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4EC09C2100E669009163C8 /* ViewControllerDismissing.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		ED1048A521A20EA80074804E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		ED15C57321A5FA09009C6553 /* StatusDisplayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusDisplayController.swift; sourceTree = "<group>"; };
 		ED30F4B020F7AB8000A95E9F /* RecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 		ED30F4B120F7AB8000A95E9F /* RecorderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecorderViewController.xib; sourceTree = "<group>"; };
 		ED4EC09C2100E669009163C8 /* ViewControllerDismissing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDismissing.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				ED7377C320EFAEE5004C348F /* Result.swift */,
 				EDE4320F2197AA8E00D94741 /* LocationPublisher.swift */,
+				ED15C57321A5FA09009C6553 /* StatusDisplayController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				EDB80C4020F8FBB700CD75C8 /* LocationViewController.swift in Sources */,
 				ED79522D219B77FC00BFAB7A /* RecordingViewController.swift in Sources */,
 				ED78283520FE311500BAE662 /* ContainedStackViewController.swift in Sources */,
+				ED15C57421A5FA09009C6553 /* StatusDisplayController.swift in Sources */,
 				ED860FD920FEC63E00922EEC /* AudioRecorder.swift in Sources */,
 				EDE4320E21977B5F00D94741 /* MainViewController.swift in Sources */,
 				ED4EC09D2100E669009163C8 /* ViewControllerDismissing.swift in Sources */,
