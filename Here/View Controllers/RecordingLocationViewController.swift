@@ -46,7 +46,7 @@ class RecordingLocationViewController: ContainedStackViewController {
 
 }
 
-extension RecordingLocationViewController: RecordingFileProviding {
+extension RecordingLocationViewController: RecordingDelegate {
     
     func saved(_ recordingURL: URL) {
         let location = locationViewController.location
@@ -61,6 +61,10 @@ extension RecordingLocationViewController: RecordingFileProviding {
             // Do something?
             self.delegate?.dismiss()
         }
+    }
+    
+    func cancelled() {
+        
     }
     
 }

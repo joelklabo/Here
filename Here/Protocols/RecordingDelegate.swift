@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol RecordingFileProviding {
+protocol RecordingDelegate {
     func saved(_ recordingURL: URL)
+    func cancelled()
 }

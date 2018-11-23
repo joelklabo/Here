@@ -12,7 +12,7 @@
 		ED30F4B220F7AB8000A95E9F /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED30F4B020F7AB8000A95E9F /* RecorderViewController.swift */; };
 		ED30F4B320F7AB8000A95E9F /* RecorderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED30F4B120F7AB8000A95E9F /* RecorderViewController.xib */; };
 		ED4EC09D2100E669009163C8 /* ViewControllerDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4EC09C2100E669009163C8 /* ViewControllerDismissing.swift */; };
-		ED4EC09F2100E68B009163C8 /* RecordingFileProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4EC09E2100E68B009163C8 /* RecordingFileProviding.swift */; };
+		ED4EC09F2100E68B009163C8 /* RecordingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4EC09E2100E68B009163C8 /* RecordingDelegate.swift */; };
 		ED7377C420EFAEE5004C348F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7377C320EFAEE5004C348F /* Result.swift */; };
 		ED78283520FE311500BAE662 /* ContainedStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78283420FE311500BAE662 /* ContainedStackViewController.swift */; };
 		ED78283720FE318D00BAE662 /* RecordingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78283620FE318D00BAE662 /* RecordingLocationViewController.swift */; };
@@ -58,7 +58,7 @@
 		ED30F4B020F7AB8000A95E9F /* RecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 		ED30F4B120F7AB8000A95E9F /* RecorderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecorderViewController.xib; sourceTree = "<group>"; };
 		ED4EC09C2100E669009163C8 /* ViewControllerDismissing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDismissing.swift; sourceTree = "<group>"; };
-		ED4EC09E2100E68B009163C8 /* RecordingFileProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingFileProviding.swift; sourceTree = "<group>"; };
+		ED4EC09E2100E68B009163C8 /* RecordingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDelegate.swift; sourceTree = "<group>"; };
 		ED7377C320EFAEE5004C348F /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		ED78283420FE311500BAE662 /* ContainedStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainedStackViewController.swift; sourceTree = "<group>"; };
 		ED78283620FE318D00BAE662 /* RecordingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingLocationViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				ED4EC09C2100E669009163C8 /* ViewControllerDismissing.swift */,
-				ED4EC09E2100E68B009163C8 /* RecordingFileProviding.swift */,
+				ED4EC09E2100E68B009163C8 /* RecordingDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -397,7 +397,7 @@
 				EDD86EC520EBB58100E28A4E /* RecordingDataService.swift in Sources */,
 				EDC0049A20F3A29F009AA7AC /* RecordingAnnotationView.swift in Sources */,
 				EDE432102197AA8E00D94741 /* LocationPublisher.swift in Sources */,
-				ED4EC09F2100E68B009163C8 /* RecordingFileProviding.swift in Sources */,
+				ED4EC09F2100E68B009163C8 /* RecordingDelegate.swift in Sources */,
 				ED30F4B220F7AB8000A95E9F /* RecorderViewController.swift in Sources */,
 				EDB80C4020F8FBB700CD75C8 /* LocationViewController.swift in Sources */,
 				ED79522D219B77FC00BFAB7A /* RecordingViewController.swift in Sources */,

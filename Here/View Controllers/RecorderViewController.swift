@@ -18,7 +18,7 @@ class RecorderViewController: UIViewController {
     
     var audioRecorder = AudioRecorder()
     
-    var delegate: (RecordingFileProviding & ViewControllerDismissing)?
+    var delegate: (RecordingDelegate & ViewControllerDismissing)?
     
     var recording: Recording?
     

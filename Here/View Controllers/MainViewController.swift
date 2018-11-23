@@ -24,8 +24,19 @@ class MainViewController: UIViewController {
     
     let feedbackGenerator = UIImpactFeedbackGenerator()
     
-    var isCollapsed: Bool {
-        return recordingViewHeightConstraint.constant == collapsedHeight
+    var isCollapsed: Bool = true {
+        didSet {
+            if isCollapsed {
+                recordingViewHeightConstraint.constant = self.collapsedHeight
+                mapViewController.updateToCollapsedState()
+                recordingViewController.updateToCollapsedState()
+            } else {
+                recordingViewHeightConstraint.constant = self.expandedHeight
+                mapViewController.updateToExpandedState()
+                recordingViewController.updateToExpandedState()
+            }
+            view.setNeedsLayout()
+        }
     }
     
     override func viewDidLoad() {
@@ -46,6 +57,7 @@ class MainViewController: UIViewController {
         view.addSubview(recordingViewController.view)
         recordingViewController.view.translatesAutoresizingMaskIntoConstraints = false
         recordingViewController.didMove(toParent: self)
+        recordingViewController.delegate = self
         
         recordingViewHeightConstraint = recordingViewController.view.heightAnchor.constraint(equalToConstant: 100)
         recordingViewHeightConstraint.isActive = true
@@ -62,29 +74,10 @@ class MainViewController: UIViewController {
         
         recordingViewController.collapsedView.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                                           action: #selector(MainViewController.tappedRecordingView)))
-        recordingViewController.cancelButton.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                                          action: #selector(MainViewController.tappedRecordingView)))
-    }
-    
-    func updateToExpandedState() {
-        recordingViewHeightConstraint.constant = self.expandedHeight
-        mapViewController.updateToExpandedState()
-        recordingViewController.updateToExpandedState()
-    }
-    
-    func updateToCollapsedState() {
-        recordingViewHeightConstraint.constant = self.collapsedHeight
-        mapViewController.updateToCollapsedState()
-        recordingViewController.updateToCollapsedState()
     }
     
     func animateViewUpdate() {
         feedbackGenerator.prepare()
-        if self.isCollapsed {
-            self.updateToExpandedState()
-        } else {
-            self.updateToCollapsedState()
-        }
         UIView.animate(withDuration: 0.2, animations: {
             self.view.layoutIfNeeded()
         }) { _ in
@@ -93,12 +86,34 @@ class MainViewController: UIViewController {
         }
     }
     
-    @objc func cancelRecording() {
-        animateViewUpdate()
-    }
-    
     @objc func tappedRecordingView() {
+        self.isCollapsed.toggle()
         animateViewUpdate()
     }
+}
+
+extension MainViewController: RecordingDelegate {
+    func saved(_ recordingURL: URL) {
+        isCollapsed.toggle()
+        animateViewUpdate()
+        StatusDisplayController.shared.show(message: "Saving...")
+        guard let location = mapViewController.currentLocation else { return }
+        let recording = Recording(fileURL: recordingURL, location: location)
+        DataService.save(recording) { result in
+            switch result {
+            case .success(let recording):
+                print(recording)
+                StatusDisplayController.shared.show(message: "Saved")
+                StatusDisplayController.shared.hide()
+            case .error(let error):
+                StatusDisplayController.shared.show(message: "Error: \(error)")
+                StatusDisplayController.shared.hide()
+            }
+        }
+    }
     
+    func cancelled() {
+        isCollapsed.toggle()
+        animateViewUpdate()
+    }
 }

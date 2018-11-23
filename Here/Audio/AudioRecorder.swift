@@ -9,18 +9,31 @@
 import Foundation
 import AVFoundation
 
+protocol AudioRecorderDelegate {
+    func didFinishRecording()
+}
+
 class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     private let session = AVAudioSession.sharedInstance()
     private var recorder: AVAudioRecorder? = nil
     private var player: AVAudioPlayer? = nil
+    
+    var delegate: AudioRecorderDelegate?
+    
     var audioFileURL: URL? {
         didSet {
             if let fileURL = audioFileURL {
                 player = try! AVAudioPlayer(contentsOf: fileURL)
                 player?.prepareToPlay()
+                player?.numberOfLoops = -1
             }
         }
+    }
+    
+    var isRecording: Bool {
+        guard let recorder = recorder else { return false }
+        return recorder.isRecording
     }
     
     func prepare() {
@@ -68,6 +81,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             let recordedFileURL = recorder.url
             audioFileURL = recordedFileURL
             prepare()
+            delegate?.didFinishRecording()
         }
     }
     
