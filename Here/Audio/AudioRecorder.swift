@@ -37,20 +37,25 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
     
     func prepare() {
-        let sampleRate: Double = 48000
-        let channelCount: AVAudioChannelCount = 2
+
         let url = temporaryFileURL()
-        guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount) else {
-            fatalError("Invalid audio format")
-        }
+
         do {
-            try recorder = AVAudioRecorder(url: url, format: audioFormat)
             try session.setActive(true)
+            let formatSettings = [
+                AVSampleRateKey: 44100.0,
+                AVNumberOfChannelsKey: 1,
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVEncoderBitRateKey: 192000,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+                ] as [String : Any]
+            recorder = try AVAudioRecorder(url: url, settings: formatSettings)
+            recorder?.prepareToRecord()
         } catch {
             fatalError("Could not create audio recorder: \(error)")
         }
+        
         recorder?.delegate = self
-        recorder?.prepareToRecord()
     }
     
     func start() {
