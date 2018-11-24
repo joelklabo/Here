@@ -26,6 +26,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             if let fileURL = audioFileURL {
                 player = try! AVAudioPlayer(contentsOf: fileURL)
                 player?.prepareToPlay()
+                player?.isMeteringEnabled = true
                 player?.numberOfLoops = -1
             }
         }
@@ -50,6 +51,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
                 AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
                 ] as [String : Any]
             recorder = try AVAudioRecorder(url: url, settings: formatSettings)
+            recorder?.isMeteringEnabled = true
             recorder?.prepareToRecord()
         } catch {
             fatalError("Could not create audio recorder: \(error)")
