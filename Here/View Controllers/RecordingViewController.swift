@@ -28,6 +28,7 @@ class RecordingViewController: UIViewController {
         
         audioRecorder.prepare()
         audioRecorder.delegate = self
+        audioRecorder.intesityDelegate = self
         
         collapsedView.backgroundColor = .green
         collapsedView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,5 +109,11 @@ extension RecordingViewController {
 extension RecordingViewController: AudioRecorderDelegate {
     func didFinishRecording() {
         audioRecorder.play()
+    }
+}
+
+extension RecordingViewController: AudioIntesityLevelDelegate {
+    func update(intensity: Float) {
+        audioDisplayView.alpha = CGFloat(intensity)
     }
 }

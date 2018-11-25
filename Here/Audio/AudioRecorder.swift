@@ -13,13 +13,20 @@ protocol AudioRecorderDelegate {
     func didFinishRecording()
 }
 
+protocol AudioIntesityLevelDelegate {
+    func update(intensity: Float)
+}
+
 class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     private let session = AVAudioSession.sharedInstance()
     private var recorder: AVAudioRecorder? = nil
-    private var player: AVAudioPlayer? = nil
+    private var player: AVAudioPlayer? = nil 
     
     var delegate: AudioRecorderDelegate?
+    var intesityDelegate: AudioIntesityLevelDelegate?
+    
+    var timer: Timer?
     
     var audioFileURL: URL? {
         didSet {
@@ -35,6 +42,36 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     var isRecording: Bool {
         guard let recorder = recorder else { return false }
         return recorder.isRecording
+    }
+    
+    override init() {
+        super.init()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            self.updateIntensity()
+        }
+    }
+    
+    deinit {
+        timer?.invalidate()
+    }
+    
+    private func updateIntensity() {
+        guard player != nil || recorder != nil else { return }
+        if let recorder = recorder, recorder.isRecording == true {
+            recorder.updateMeters()
+            let intensity = recorder.averagePower(forChannel: 0)
+            self.intesityDelegate?.update(intensity: translate(intensity: intensity))
+        }
+        if let player = player, player.isPlaying == true {
+            player.updateMeters()
+            let intensity = player.averagePower(forChannel: 0)
+            self.intesityDelegate?.update(intensity: translate(intensity: intensity))
+        }
+    }
+    
+    private func translate(intensity: Float) -> Float {
+        // from -160 (minimum) to 0 (maximum)
+        return 1 - abs(intensity) / 160
     }
     
     func prepare() {
