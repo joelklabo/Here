@@ -103,6 +103,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     func stop() {
         recorder?.stop()
+        player?.stop()
     }
     
     func play() {

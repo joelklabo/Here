@@ -16,7 +16,7 @@
 		ED7377C420EFAEE5004C348F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7377C320EFAEE5004C348F /* Result.swift */; };
 		ED78283520FE311500BAE662 /* ContainedStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78283420FE311500BAE662 /* ContainedStackViewController.swift */; };
 		ED78283720FE318D00BAE662 /* RecordingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78283620FE318D00BAE662 /* RecordingLocationViewController.swift */; };
-		ED79522D219B77FC00BFAB7A /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79522C219B77FC00BFAB7A /* RecordingViewController.swift */; };
+		ED79522D219B77FC00BFAB7A /* OldRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79522C219B77FC00BFAB7A /* OldRecordingViewController.swift */; };
 		ED860FD920FEC63E00922EEC /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED860FD820FEC63D00922EEC /* AudioRecorder.swift */; };
 		ED9B474F20E1211600B1B6E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9B474E20E1211600B1B6E1 /* AppDelegate.swift */; };
 		ED9B475820E1211900B1B6E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED9B475720E1211900B1B6E1 /* Assets.xcassets */; };
@@ -25,6 +25,9 @@
 		ED9B477120E1211900B1B6E1 /* hereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9B477020E1211900B1B6E1 /* hereUITests.swift */; };
 		EDB80C4020F8FBB700CD75C8 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB80C3E20F8FBB700CD75C8 /* LocationViewController.swift */; };
 		EDC0049A20F3A29F009AA7AC /* RecordingAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC0049920F3A29F009AA7AC /* RecordingAnnotationView.swift */; };
+		EDD7C21B21AEE18E000A9B72 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C21A21AEE18E000A9B72 /* RootViewController.swift */; };
+		EDD7C22721B6CDF9000A9B72 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C22621B6CDF9000A9B72 /* RecordButton.swift */; };
+		EDD7C22921B6CEE8000A9B72 /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C22821B6CEE8000A9B72 /* TimeView.swift */; };
 		EDD86EC520EBB58100E28A4E /* RecordingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD86EC420EBB58100E28A4E /* RecordingDataService.swift */; };
 		EDD86EC720EBB68000E28A4E /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD86EC620EBB68000E28A4E /* Recording.swift */; };
 		EDD86ECB20EBB8F200E28A4E /* CloudKitRecordingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD86ECA20EBB8F200E28A4E /* CloudKitRecordingDataService.swift */; };
@@ -62,7 +65,7 @@
 		ED7377C320EFAEE5004C348F /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		ED78283420FE311500BAE662 /* ContainedStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainedStackViewController.swift; sourceTree = "<group>"; };
 		ED78283620FE318D00BAE662 /* RecordingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingLocationViewController.swift; sourceTree = "<group>"; };
-		ED79522C219B77FC00BFAB7A /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
+		ED79522C219B77FC00BFAB7A /* OldRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldRecordingViewController.swift; sourceTree = "<group>"; };
 		ED860FD820FEC63D00922EEC /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		ED9B474B20E1211600B1B6E1 /* Here.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Here.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED9B474E20E1211600B1B6E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +80,9 @@
 		ED9B477220E1211900B1B6E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDB80C3E20F8FBB700CD75C8 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		EDC0049920F3A29F009AA7AC /* RecordingAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingAnnotationView.swift; sourceTree = "<group>"; };
+		EDD7C21A21AEE18E000A9B72 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		EDD7C22621B6CDF9000A9B72 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		EDD7C22821B6CEE8000A9B72 /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		EDD86EC420EBB58100E28A4E /* RecordingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDataService.swift; sourceTree = "<group>"; };
 		EDD86EC620EBB68000E28A4E /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		EDD86ECA20EBB8F200E28A4E /* CloudKitRecordingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitRecordingDataService.swift; sourceTree = "<group>"; };
@@ -211,6 +217,8 @@
 			isa = PBXGroup;
 			children = (
 				EDC0049920F3A29F009AA7AC /* RecordingAnnotationView.swift */,
+				EDD7C22621B6CDF9000A9B72 /* RecordButton.swift */,
+				EDD7C22821B6CEE8000A9B72 /* TimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,7 +251,8 @@
 				ED78283420FE311500BAE662 /* ContainedStackViewController.swift */,
 				ED78283620FE318D00BAE662 /* RecordingLocationViewController.swift */,
 				EDE4320D21977B5F00D94741 /* MainViewController.swift */,
-				ED79522C219B77FC00BFAB7A /* RecordingViewController.swift */,
+				EDD7C21A21AEE18E000A9B72 /* RootViewController.swift */,
+				ED79522C219B77FC00BFAB7A /* OldRecordingViewController.swift */,
 				ED1048A521A20EA80074804E /* MapViewController.swift */,
 			);
 			path = "View Controllers";
@@ -400,14 +409,17 @@
 				ED4EC09F2100E68B009163C8 /* RecordingDelegate.swift in Sources */,
 				ED30F4B220F7AB8000A95E9F /* RecorderViewController.swift in Sources */,
 				EDB80C4020F8FBB700CD75C8 /* LocationViewController.swift in Sources */,
-				ED79522D219B77FC00BFAB7A /* RecordingViewController.swift in Sources */,
+				ED79522D219B77FC00BFAB7A /* OldRecordingViewController.swift in Sources */,
 				ED78283520FE311500BAE662 /* ContainedStackViewController.swift in Sources */,
+				EDD7C21B21AEE18E000A9B72 /* RootViewController.swift in Sources */,
 				ED15C57421A5FA09009C6553 /* StatusDisplayController.swift in Sources */,
 				ED860FD920FEC63E00922EEC /* AudioRecorder.swift in Sources */,
 				EDE4320E21977B5F00D94741 /* MainViewController.swift in Sources */,
 				ED4EC09D2100E669009163C8 /* ViewControllerDismissing.swift in Sources */,
+				EDD7C22921B6CEE8000A9B72 /* TimeView.swift in Sources */,
 				ED1048A621A20EA80074804E /* MapViewController.swift in Sources */,
 				ED9B474F20E1211600B1B6E1 /* AppDelegate.swift in Sources */,
+				EDD7C22721B6CDF9000A9B72 /* RecordButton.swift in Sources */,
 				ED7377C420EFAEE5004C348F /* Result.swift in Sources */,
 				EDF272FE20E129B4000E63D5 /* OldMapViewController.swift in Sources */,
 				EDD86EC720EBB68000E28A4E /* Recording.swift in Sources */,

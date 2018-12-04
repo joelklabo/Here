@@ -9,8 +9,9 @@
 import UIKit
 import MapKit
 
-class RecordingAnnotationView: MKAnnotationView {
-}
+class RecordingAnnotationView: MKAnnotationView {}
+
+class RecordingTooFarAnnotationView: MKAnnotationView {}
 
 class RecordingAnnotation: NSObject, MKAnnotation {
     init(_ recording: Recording, _ location: CLLocationCoordinate2D) {

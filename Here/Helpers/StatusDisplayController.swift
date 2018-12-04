@@ -77,18 +77,30 @@ class StatusDisplayController: NSObject {
     }
     
     func show(message: String) {
+        show(message: message, showSpinner: true)
+    }
+    
+    func hide() {
         DispatchQueue.main.async {
-            self.show = true
-            self.statusLabel.text = message
+            self.show = false
             UIView.animate(withDuration: 0.2, animations: {
                 self.statusView.superview?.layoutIfNeeded()
             })
         }
     }
     
-    func hide() {
+    func alert(message: String) {
+        self.show(message: message, showSpinner: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.hide()
+        }
+    }
+    
+    private func show(message: String, showSpinner: Bool) {
         DispatchQueue.main.async {
-            self.show = false
+            self.progressIndicator.isHidden = !showSpinner
+            self.show = true
+            self.statusLabel.text = message
             UIView.animate(withDuration: 0.2, animations: {
                 self.statusView.superview?.layoutIfNeeded()
             })

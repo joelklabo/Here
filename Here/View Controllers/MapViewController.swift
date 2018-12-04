@@ -15,12 +15,15 @@ class MapViewController: UIViewController {
     
     let mapView = MKMapView()
     
-    private var normalRegionSize: Double = 250
-    private var zoomRegionSize: Double = 50
+    private var listenableRange: Double = 10
+    private var normalRegionSize: Double = 30
+    private var zoomRegionSize: Double = 20
     
     var currentLocation: CLLocation!
     
-    var timer: Timer?
+    var panningTimer: Timer?
+    var annotationUpdateTimer: Timer?
+
     var mapShouldUpdate = true
     
     override func viewDidLoad() {
@@ -47,13 +50,16 @@ class MapViewController: UIViewController {
         
         mapView.addGestureRecognizer(panGestureRecognizer)
         mapView.addGestureRecognizer(pinchGestureRecognizer)
+        
+        annotationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+            self.updateAnnotations()
+        }
     }
     
     @objc func userInteractedWithMap(recognizer: UIGestureRecognizer) {
-        guard recognizer.state == .ended else { return }
         mapShouldUpdate = false
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+        panningTimer?.invalidate()
+        panningTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
             self.mapShouldUpdate = true
         }
     }
@@ -110,20 +116,38 @@ extension MapViewController: UIGestureRecognizerDelegate {
 
 extension MapViewController: MKMapViewDelegate {    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "RecordingAnnotationView")
-        if annotationView == nil { annotationView = RecordingAnnotationView() }
         if annotation.isKind(of: MKUserLocation.self)  { return nil }
-        annotationView?.image = UIImage(named: "cassette")
-        return annotationView
+        let annotationLocation = CLLocation(latitude: annotation.coordinate.latitude,
+                                            longitude: annotation.coordinate.longitude)
+        let distance = currentLocation.distance(from: annotationLocation)
+        if distance < listenableRange {
+            let annotationView = RecordingAnnotationView()
+            annotationView.image = UIImage(named: "first")
+            return annotationView
+        } else {
+            let annotationView = RecordingTooFarAnnotationView()
+            annotationView.image = UIImage(named: "second")
+            return annotationView
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.isKind(of: RecordingTooFarAnnotationView.self) {
+            StatusDisplayController.shared.alert(message: "Too Far Away")
+            return
+        }
         if let recordingAnnotation = view.annotation as? RecordingAnnotation {
             let recording = recordingAnnotation.recording
             let recordingViewController = RecorderViewController()
             recordingViewController.recording = recording
             present(recordingViewController, animated: true, completion: nil)
         }
+    }
+    
+    private func updateAnnotations() {
+        let annotations = mapView.annotations
+        mapView.removeAnnotations(annotations)
+        mapView.addAnnotations(annotations)
     }
 }
 

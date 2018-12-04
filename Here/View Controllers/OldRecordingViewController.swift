@@ -7,31 +7,33 @@
 //
 
 import UIKit
+import MapKit
 
-class RecordingViewController: UIViewController {
+class OldRecordingViewController: UIViewController {
 
     let audioRecorder = AudioRecorder()
     
     var delegate: RecordingDelegate?
+    
+    let mapView = MKMapView()
+    
+    var location: CLLocation?
     
     let recordButton = UIButton(type: UIButton.ButtonType.roundedRect)
     let saveButton = UIButton(type: UIButton.ButtonType.roundedRect)
     let deleteButton = UIButton(type: UIButton.ButtonType.roundedRect)
     let cancelButton = UIButton(type: UIButton.ButtonType.roundedRect)
     
-    let collapsedView = UIView()
-    
     let audioDisplayView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         audioRecorder.prepare()
         audioRecorder.delegate = self
         audioRecorder.intesityDelegate = self
-        
-        collapsedView.backgroundColor = .green
-        collapsedView.translatesAutoresizingMaskIntoConstraints = false
         
         audioDisplayView.backgroundColor = .red
         
@@ -48,36 +50,33 @@ class RecordingViewController: UIViewController {
         horizontalButtonStack.axis = .horizontal
         horizontalButtonStack.distribution = .fillEqually
         
-        let verticalStackView = UIStackView(arrangedSubviews: [horizontalButtonStack, audioDisplayView, recordButton])
+        let verticalStackView = UIStackView(arrangedSubviews: [mapView, horizontalButtonStack, audioDisplayView, recordButton])
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .fillEqually
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(verticalStackView)
         
-        view.addSubview(collapsedView)
-        
         NSLayoutConstraint.activate([
-            collapsedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collapsedView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collapsedView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collapsedView.topAnchor.constraint(equalTo: view.topAnchor),
             verticalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             verticalStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             verticalStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
             verticalStackView.topAnchor.constraint(equalTo: view.topAnchor)
         ])
-    }
-
-    func updateToExpandedState() {
-        collapsedView.isHidden = true
+        
+        if let location = location {
+            centerMapToCurrentLocationHighZoom(location: location)
+        }
     }
     
-    func updateToCollapsedState() {
-        collapsedView.isHidden = false
+    func centerMapToCurrentLocationHighZoom(location: CLLocation) {
+        let region = MKCoordinateRegion(center: location.coordinate,
+                                        latitudinalMeters: 20,
+                                        longitudinalMeters: 20)
+        mapView.setRegion(region, animated: true)
     }
 }
 
-extension RecordingViewController {
+extension OldRecordingViewController {
     @objc func recordButtonTapped(sender: UIButton) {
         if audioRecorder.isRecording {
             recordButton.setTitle("record", for: .normal)
@@ -103,16 +102,17 @@ extension RecordingViewController {
         audioRecorder.stop()
         audioRecorder.delete()
         delegate?.cancelled()
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
 
-extension RecordingViewController: AudioRecorderDelegate {
+extension OldRecordingViewController: AudioRecorderDelegate {
     func didFinishRecording() {
         audioRecorder.play()
     }
 }
 
-extension RecordingViewController: AudioIntesityLevelDelegate {
+extension OldRecordingViewController: AudioIntesityLevelDelegate {
     func update(intensity: Float) {
         audioDisplayView.alpha = CGFloat(intensity)
     }

@@ -45,7 +45,7 @@ protocol LocationObserving: AnyObject {
 
 class LocationObserver: NSObject {
     private var previousSignificantLocation: CLLocation?
-    private let significantDistance = CLLocationDistance(10)
+    private let significantDistance = CLLocationDistance(500)
     weak var delegate: LocationObserving?
     override init() {
         super.init()

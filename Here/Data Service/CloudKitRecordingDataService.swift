@@ -33,6 +33,7 @@ struct CloudKitRecordingDataService : RecordingDataService {
         let publicDatabase = CKContainer.default().publicCloudDatabase
         let locationPredicate = NSPredicate(value: true)
         let recordingQuery = CKQuery(recordType: "recording", predicate: locationPredicate)
+        recordingQuery.sortDescriptors = [CKLocationSortDescriptor(key: "location", relativeLocation: location)]
         
         publicDatabase.perform(recordingQuery, inZoneWith: nil) { records, error in
             if let records = records {

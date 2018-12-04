@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     
     let locationObserver = LocationObserver()
     
-    let recordingViewController = RecordingViewController()
+    let recordingViewController = OldRecordingViewController()
     let mapViewController = MapViewController()
     
     var recordingViewHeightConstraint: NSLayoutConstraint!
@@ -29,11 +29,9 @@ class MainViewController: UIViewController {
             if isCollapsed {
                 recordingViewHeightConstraint.constant = self.collapsedHeight
                 mapViewController.updateToCollapsedState()
-                recordingViewController.updateToCollapsedState()
             } else {
                 recordingViewHeightConstraint.constant = self.expandedHeight
                 mapViewController.updateToExpandedState()
-                recordingViewController.updateToExpandedState()
             }
             view.setNeedsLayout()
         }
@@ -71,9 +69,6 @@ class MainViewController: UIViewController {
             recordingViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor),
             recordingViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        recordingViewController.collapsedView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                                          action: #selector(MainViewController.tappedRecordingView)))
     }
     
     func animateViewUpdate() {

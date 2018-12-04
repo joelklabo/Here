@@ -126,11 +126,7 @@ class RecorderViewController: UIViewController {
     
     @IBAction func exitTapped(_ sender: Any) {
         audioRecorder.stop()
-        presentingViewController?.dismiss(animated: true, completion: {
-            if self.isBeingDismissed {
-                // inform the delegate if you have a recording
-            }
-        })
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
 }
