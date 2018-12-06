@@ -10,7 +10,7 @@ import UIKit
 
 class TimeView: UIView {
 
-    static var sampleCount = 90
+    static var sampleCount = 350
     
     // One bar every 0.1s, max 9s (9 / 0.1 = 90)
     // width will be divided into 90 segments
@@ -52,6 +52,7 @@ class TimeView: UIView {
             samplePath.move(to: startPoint)
             samplePath.addLine(to: endPoint)
             UIColor.blue.setStroke()
+            samplePath.lineWidth = 0.5
             samplePath.stroke()
         }
     }

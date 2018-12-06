@@ -8,9 +8,14 @@
 
 import UIKit
 
+extension UIControl.Event {
+    static let record = UIControl.Event(rawValue: 0b0001 << 24)
+    static let stop = UIControl.Event(rawValue: 0b0010 << 24)
+}
+
 class RecordButton: UIControl {
 
-    enum ButtonState {
+    private enum ButtonState {
         case record
         case stop
         
@@ -22,16 +27,16 @@ class RecordButton: UIControl {
         }
     }
     
-    var currentState: ButtonState = .stop {
+    private var currentState: ButtonState = .record {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    var outerCirclePath = UIBezierPath()
-    @objc let buttonShapeLayer = CAShapeLayer()
+    private var outerCirclePath = UIBezierPath()
+    @objc private let buttonShapeLayer = CAShapeLayer()
     
-    let outerLineWidth: CGFloat = 4
+    private let outerLineWidth: CGFloat = 4
     
     convenience init() {
         self.init(frame: .zero)
@@ -40,6 +45,8 @@ class RecordButton: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.addSublayer(buttonShapeLayer)
+        addTarget(self, action: #selector(handleAction), for: .touchUpInside)
+        backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,33 +55,54 @@ class RecordButton: UIControl {
     
     override func draw(_ rect: CGRect) {
         
+        let height = bounds.height > bounds.width ? bounds.width : bounds.height
+        let width = height
+        let startX = bounds.midX - width/2
+        let centeredRect = CGRect(x: startX, y: 0, width: width, height: height)
+        
         let insetForLineWidth: CGFloat = outerLineWidth/2
-        outerCirclePath = UIBezierPath(ovalIn: bounds.insetBy(dx: insetForLineWidth, dy: insetForLineWidth))
+        outerCirclePath = UIBezierPath(ovalIn: centeredRect.insetBy(dx: insetForLineWidth, dy: insetForLineWidth))
         outerCirclePath.lineWidth = outerLineWidth
-        UIColor.white.setStroke()
+        UIColor.black.setStroke()
         outerCirclePath.stroke()
         
         switch currentState {
         case .record:
             let innerCircleInset: CGFloat = 8
-            let inset = bounds.insetBy(dx: innerCircleInset, dy: innerCircleInset)
+            let inset = centeredRect.insetBy(dx: innerCircleInset, dy: innerCircleInset)
             buttonShapeLayer.path = UIBezierPath(roundedRect: inset, cornerRadius: inset.width/2).cgPath
         case .stop:
-            let roundedRectInset: CGFloat = 28
+            let roundedRectInset: CGFloat = 23
             let cornerRadius: CGFloat = 10
-            let inset = bounds.insetBy(dx: roundedRectInset, dy: roundedRectInset)
+            let inset = centeredRect.insetBy(dx: roundedRectInset, dy: roundedRectInset)
             buttonShapeLayer.path = UIBezierPath(roundedRect: inset, cornerRadius: cornerRadius).cgPath
         }
         
         buttonShapeLayer.fillColor = UIColor.red.cgColor
     }
     
-    func animateToggle() {
+    private func animateToggle() {
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = buttonShapeLayer.path
         animation.toValue = currentState.other()
         animation.duration = 0.1
         buttonShapeLayer.add(animation, forKey: animation.keyPath)
         currentState = currentState.other()
+    }
+    
+    @objc private func handleAction() {
+        let animation = CABasicAnimation(keyPath: "path")
+        animation.fromValue = buttonShapeLayer.path
+        animation.toValue = currentState.other()
+        animation.duration = 0.1
+        buttonShapeLayer.add(animation, forKey: animation.keyPath)
+        currentState = currentState.other()
+        
+        switch currentState {
+        case .record:
+            sendActions(for: .stop)
+        case .stop:
+            sendActions(for: .record)
+        }
     }
 }

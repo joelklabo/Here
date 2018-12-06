@@ -46,7 +46,7 @@ class RootViewController: UIViewController {
     }
     
     @objc func composeButtonTapped() {
-        let recordingViewController = OldRecordingViewController()
+        let recordingViewController = RecordingViewController()
         recordingViewController.location = mapViewController.currentLocation
         present(recordingViewController, animated: true, completion: nil)
     }
