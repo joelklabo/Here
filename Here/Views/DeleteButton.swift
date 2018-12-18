@@ -65,6 +65,12 @@ class DeleteButton: UIControl {
         xPath.lineWidth = lineWidth
         xPath.lineCapStyle = .round
         xPath.stroke()
+        
+        if state == .disabled {
+            layer.opacity = 0.2
+        } else {
+            layer.opacity = 1
+        }
     }
 }
 

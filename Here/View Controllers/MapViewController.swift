@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: BrandedViewController {
 
     let locationObserver = LocationObserver()
     

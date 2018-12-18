@@ -8,19 +8,13 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+class RootViewController: BrandedViewController {
 
     let mapViewController = MapViewController()
     let tabBar = UITabBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let label = UILabel(frame: .zero)
-        label.text = "here"
-        label.font = UIFont.systemFont(ofSize: 30, weight: .heavy)
-        label.sizeToFit()
-        navigationItem.titleView = label
         
         addChild(mapViewController)
         view.addSubview(mapViewController.view)
@@ -48,6 +42,7 @@ class RootViewController: UIViewController {
     @objc func composeButtonTapped() {
         let recordingViewController = RecordingViewController()
         recordingViewController.location = mapViewController.currentLocation
-        present(recordingViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: recordingViewController)
+        present(navigationController, animated: true, completion: nil)
     }
 }

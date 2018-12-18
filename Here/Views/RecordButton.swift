@@ -79,6 +79,12 @@ class RecordButton: UIControl {
         }
         
         buttonShapeLayer.fillColor = UIColor.red.cgColor
+        
+        if state == .disabled {
+            layer.opacity = 0.2
+        } else {
+            layer.opacity = 1
+        }
     }
     
     private func animateToggle() {
